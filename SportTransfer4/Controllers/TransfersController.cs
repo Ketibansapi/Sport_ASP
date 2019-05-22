@@ -4,45 +4,28 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SportTransfer4.Models;
+using SportTransfer4.ViewModels;
 
 namespace SportTransfer4.Controllers
 {
     public class TransfersController : Controller
     {
-        // GET: Transfers 
-        public ActionResult Random()
+        
+        public ViewResult Index()
         {
-            var transfer = new Transfer() { Name = "Griffiths" };
+            var transfers = GetTransfers();
 
-            // return RedirectToAction("Index", "Home", new {page = 1, sortBy = "name"});
-
-        //    ViewData["Transfer"] = transfer;
-
-            return View(transfer);
+            return View(transfers);
         }
 
-        /*       public ActionResult Edit (int id)
-               {
-                   return Content("id=" + id);
-               }
-
-               public ActionResult Index (int? pageIndex, string sortBy)
-               {
-                   if (!pageIndex.HasValue)
-                       pageIndex = 1;
-                   if (String.IsNullOrWhiteSpace(sortBy))
-                       sortBy = "Name";
-
-                   return Content(String.Format("pageIndex={0}&sortBy={1}", pageIndex, sortBy));
-               }
-       */
-
-        /* [Route("transfers/released/{year}/{month:regex(\\d{4}):range(1, 12)}")]
-           public ActionResult ByReleaseDate(int year, int month)
-               {
-                   return Content(year + "/" );
-               }
-        */
+        private IEnumerable<Transfer> GetTransfers()
+        {
+            return new List<Transfer>
+            {
+                new Transfer { Id = 1, Name = "Node"},
+                new Transfer { Id = 2, Name = "Miaw"}
+            };
+        }
 
     }
 }
