@@ -201,6 +201,18 @@
     <Compile Include="Migrations\201905242321226_ApplyAnnotationsToCustomerName.Designer.cs">
       <DependentUpon>201905242321226_ApplyAnnotationsToCustomerName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905251845405_SetNameToMembershipTypes.cs" />
+    <Compile Include="Migrations\201905251845405_SetNameToMembershipTypes.Designer.cs">
+      <DependentUpon>201905251845405_SetNameToMembershipTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905251846321_PopulateMembershipTypeNames.cs" />
+    <Compile Include="Migrations\201905251846321_PopulateMembershipTypeNames.Designer.cs">
+      <DependentUpon>201905251846321_PopulateMembershipTypeNames.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905251930598_AddBirthdateToCustomer.cs" />
+    <Compile Include="Migrations\201905251930598_AddBirthdateToCustomer.Designer.cs">
+      <DependentUpon>201905251930598_AddBirthdateToCustomer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -308,6 +320,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905242321226_ApplyAnnotationsToCustomerName.resx">
       <DependentUpon>201905242321226_ApplyAnnotationsToCustomerName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905251845405_SetNameToMembershipTypes.resx">
+      <DependentUpon>201905251845405_SetNameToMembershipTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905251846321_PopulateMembershipTypeNames.resx">
+      <DependentUpon>201905251846321_PopulateMembershipTypeNames.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905251930598_AddBirthdateToCustomer.resx">
+      <DependentUpon>201905251930598_AddBirthdateToCustomer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
