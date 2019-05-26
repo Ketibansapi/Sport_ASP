@@ -9,7 +9,7 @@ namespace SportTransfer4.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(SportTransfer4.Models.ApplicationDbContext context)

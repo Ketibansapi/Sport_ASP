@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,21 +11,33 @@ namespace SportTransfer4.Controllers
 {
     public class TransfersController : Controller
     {
-        
+        private ApplicationDbContext _context;
+
+        public TransfersController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
+
         public ViewResult Index()
         {
-            var transfers = GetTransfers();
+            var transfers = _context.Transfers.Include(m => m.Genre).ToList();
 
             return View(transfers);
         }
 
-        private IEnumerable<Transfer> GetTransfers()
+        public ActionResult Details(int id)
         {
-            return new List<Transfer>
-            {
-                new Transfer { Id = 1, Name = "Node"},
-                new Transfer { Id = 2, Name = "Miaw"}
-            };
+            var transfer = _context.Transfers.Include(m => m.Genre).SingleOrDefault(m => m.Id == id);
+
+            if (transfer == null)
+                return HttpNotFound();
+
+            return View(transfer);
         }
 
     }

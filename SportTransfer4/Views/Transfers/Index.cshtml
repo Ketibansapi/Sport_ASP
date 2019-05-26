@@ -10,14 +10,16 @@
     <thead>
         <tr>
             <th>Transfer</th>
+            <th>Genre</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var transfer in Model)
         {
-            <tr>
-                <td>@transfer.Name</td>
-            </tr>
+        <tr>
+            <td>@Html.ActionLink(transfer.Name, "Details", "Transfers", new { id = transfer.Id }, null)</td>
+            <td>@transfer.Genre.Name</td>
+        </tr>
         }
     </tbody>
 </table>
