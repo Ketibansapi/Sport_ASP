@@ -22,7 +22,7 @@ namespace SportTransfer4.Models
     {
         public DbSet<Customer> Customers { get; set;}
         public DbSet<Transfer> Transfers { get; set; }
-
+        public DbSet<MembershipType> MembershipTypes { get; set; }
 
 
 

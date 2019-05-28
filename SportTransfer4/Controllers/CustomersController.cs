@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SportTransfer4.Models;
+using SportTransfer4.ViewModels;
 
 namespace SportTransfer4.Controllers
 {
@@ -24,7 +25,13 @@ namespace SportTransfer4.Controllers
 
         public ActionResult New()
         {
-            return View();
+            var membershipTypes = _context.MembershipTypes.ToList();
+            var viewModel = new NewCustomerViewModel
+            {
+                MembershipTypes = membershipTypes
+            };
+
+            return View(viewModel);
         }
 
         public ViewResult Index()
