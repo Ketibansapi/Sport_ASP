@@ -13,7 +13,14 @@ namespace SportTransfer4.App_Start
         public MappingProfile()
         {
             Mapper.CreateMap<Customer, CustomerDto>();
-            Mapper.CreateMap<CustomerDto, Customer>();
+            Mapper.CreateMap<Transfer, TransferDto>();
+
+            // Dto to Domain
+            Mapper.CreateMap<CustomerDto, Customer>()
+                .ForMember(c => c.Id, opt => opt.Ignore());
+
+            Mapper.CreateMap<TransferDto, Transfer>()
+                .ForMember(c => c.Id, opt => opt.Ignore());
         }
     }
 }
