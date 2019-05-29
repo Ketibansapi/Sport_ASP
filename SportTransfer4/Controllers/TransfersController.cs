@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -50,9 +51,9 @@ namespace SportTransfer4.Controllers
             if (transfer == null)
                 return HttpNotFound();
 
-            var viewModel = new TransferFormViewModel
+            var viewModel = new TransferFormViewModel(transfer)
             {
-                Transfer = transfer,
+               // Transfer = transfer,
                 Genres = _context.Genres.ToList()
             };
 
@@ -69,8 +70,38 @@ namespace SportTransfer4.Controllers
             return View(transfer);
         }
 
-     //   [HttpPost]
-     //   public ActionResult Save(Transfer transfer)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Save(Transfer transfer)
+        {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new TransferFormViewModel(transfer)
+                {
+                    Genres = _context.Genres.ToList()
+                };
+
+                return View("TransferForm", viewModel);
+            }
+
+            if (transfer.Id == 0)
+            {
+                transfer.DateAdded = DateTime.Now;
+                _context.Transfers.Add(transfer);
+            }
+            else
+            {
+                var transferInDb = _context.Transfers.Single(m => m.Id == transfer.Id);
+                transferInDb.Name = transfer.Name;
+                transferInDb.GenreId = transfer.GenreId;
+                transferInDb.NumberInStock = transfer.NumberInStock;
+                transferInDb.ReleaseDate = transfer.ReleaseDate;
+            }
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Transfers");
+        }
 
     }
 }

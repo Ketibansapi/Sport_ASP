@@ -24,7 +24,7 @@ namespace SportTransfer4
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap-cyborg.css",
-                      "~/Content/site.css"));
+                      "~/Content/Site.css"));
         }
     }
 }
