@@ -27,9 +27,14 @@ namespace SportTransfer4.Controllers
 
         public ViewResult Index()
         {
-            return View();
+            if (User.IsInRole(RoleName.CanManageTransfers))
+                return View("List");
+
+            return View("ReadOnlyList");
         }
 
+
+        [Authorize(Roles = RoleName.CanManageTransfers)]
         public ViewResult New()
         {
             var genres = _context.Genres.ToList();
@@ -42,6 +47,7 @@ namespace SportTransfer4.Controllers
             return View("TransferForm", viewModel);
         }
 
+        [Authorize(Roles = RoleName.CanManageTransfers)]
         public ActionResult Edit(int id)
         {
             var transfer = _context.Transfers.SingleOrDefault(c => c.Id == id);
@@ -70,6 +76,7 @@ namespace SportTransfer4.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.CanManageTransfers)]
         public ActionResult Save(Transfer transfer)
         {
             if (!ModelState.IsValid)

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<SportTransfer4.Models.Transfer>
+
+@{
+    ViewBag.Title = "Transfers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Transfers</h2>
+
+<table id="transfers" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Transfer</th>
+            <th>Genre</th>
+
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var table = $("#transfers").DataTable({
+                ajax: {
+                    url: "/api/transfers",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "name",
+                    },
+                    {
+                        data: "genre.name"
+                    }
+                ]
+            });
+        });
+    </script>
+}
