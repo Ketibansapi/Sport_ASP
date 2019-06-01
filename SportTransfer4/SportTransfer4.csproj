@@ -195,6 +195,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TransfersController.cs" />
     <Compile Include="Dtos\CustomerDto.cs" />
+    <Compile Include="Dtos\GenreDto.cs" />
     <Compile Include="Dtos\MembershipTypeDto.cs" />
     <Compile Include="Dtos\TransferDto.cs" />
     <Compile Include="Global.asax.cs">

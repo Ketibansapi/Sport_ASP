@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Data.Entity;
 using AutoMapper;
 using SportTransfer4.Models;
 using SportTransfer4.Dtos;
@@ -21,7 +22,10 @@ namespace SportTransfer4.Controllers.Api
 
         public IEnumerable<TransferDto> GetTransfers()
         {
-            return _context.Transfers.ToList().Select(Mapper.Map<Transfer, TransferDto>);
+            return _context.Transfers
+                .Include(m => m.Genre)
+                .ToList()
+                .Select(Mapper.Map<Transfer, TransferDto>);
         }
 
         public IHttpActionResult GetTransfer(int id)

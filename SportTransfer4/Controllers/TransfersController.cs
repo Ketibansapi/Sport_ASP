@@ -27,9 +27,7 @@ namespace SportTransfer4.Controllers
 
         public ViewResult Index()
         {
-            var transfers = _context.Transfers.Include(m => m.Genre).ToList();
-
-            return View(transfers);
+            return View();
         }
 
         public ViewResult New()
