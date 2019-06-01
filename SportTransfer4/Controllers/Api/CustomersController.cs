@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
+using System.Data.Entity;
 using SportTransfer4.Dtos;
 using SportTransfer4.Models;
 
@@ -22,7 +23,10 @@ namespace SportTransfer4.Controllers.Api
         // GET /api/customers
         public IHttpActionResult GetCustomers()
         {
-            var customerDtos = _context.Customers.ToList().Select(Mapper.Map<Customer, CustomerDto>);
+            var customerDtos = _context.Customers
+                 .Include(c => c.MembershipType)
+                 .ToList()
+                 .Select(Mapper.Map<Customer, CustomerDto>);
 
             return Ok(customerDtos);
         }
