@@ -10,14 +10,14 @@
     <div class="form-group">
         <label>Customer</label>
         <div class="tt-container">
-            <input id="customer" type="text" value="" class="form-control" />
+            <input id="customer" name="customer" data-rule-validCustomer="true" required type="text" value="" class="form-control" />
         </div>
     </div>
 
     <div class="form-group">
         <label>Transfer</label>
         <div class="tt-container">
-            <input id="transfer" type="text" value="" class="form-control" />
+            <input id="transfer" name="transfer" data-rule-atLeastOneTransfer="true" type="text" value="" class="form-control" />
         </div>
     </div>
 
@@ -33,11 +33,12 @@
 
 @section scripts
 {
+    @Scripts.Render("~/bundles/jqueryval")
     <script>
         $(document).ready(function () {
-
-            var vm = {};
-
+            var vm = {
+                transferIds: []
+            };
             var customers = new Bloodhound({
                 datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -46,7 +47,6 @@
                     wildcard: '%QUERY'
                 }
             });
-
             $('#customer').typeahead({
                 minLength: 3,
                 highlight: true
@@ -57,7 +57,54 @@
                 }).on("typeahead:select", function (e, customer) {
                     vm.customerId = customer.id;
                 });
+            var transfers = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/api/transfers?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+            $('#transfer').typeahead({
+                minLength: 3,
+                highlight: true
+            }, {
+                    name: 'transfers',
+                    display: 'name',
+                    source: transfers
+                }).on("typeahead:select", function (e, transfer) {
+                    $("#transfers").append("<li class='list-group-item'>" + transfer.name + "</li>");
+                    $("#transfer").typeahead("val", "");
+                    vm.transferIds.push(transfer.id);
+                });
+
+            $.validator.addMethod("validCustomer", function () {
+                return vm.customerId && vm.customerId !== 0;
+            }, "Please select a valid customer.");
+            $.validator.addMethod("atLeastOneTransfer", function () {
+                return vm.transferIds.length > 0;
+            }, "Please select at least one transfer.");
+            var validator = $("#newRental").validate({
+                submitHandler: function () {
+                    $.ajax({
+                        url: "/api/newRentals",
+                        method: "post",
+                        data: vm
+                    })
+                        .done(function () {
+                            toastr.success("Transfers successfully recorded.");
+                            $("#customer").typeahead("val", "");
+                            $("#transfer").typeahead("val", "");
+                            $("#transfers").empty();
+                            vm = { transferIds: [] };
+                            validator.resetForm();
+                        })
+                        .fail(function () {
+                            toastr.error("Something unexpected happened.");
+                        });
+                    return false;
+                }
+            });
         });
     </script>
-    
 }
