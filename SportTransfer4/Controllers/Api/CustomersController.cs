@@ -47,7 +47,7 @@ namespace SportTransfer4.Controllers.Api
             return Ok(Mapper.Map<Customer, CustomerDto>(customer));
         }
 
-        // POST /api/customers
+        // POST /api /customers
         [HttpPost]
         public IHttpActionResult CreateCustomer(CustomerDto customerDto)
         {

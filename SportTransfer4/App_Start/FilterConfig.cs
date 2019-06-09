@@ -7,7 +7,7 @@ namespace SportTransfer4
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
+            filters.Add(new ErrorHandler.AiHandleErrorAttribute());
             filters.Add(new AuthorizeAttribute());
             filters.Add(new RequireHttpsAttribute());
         }
