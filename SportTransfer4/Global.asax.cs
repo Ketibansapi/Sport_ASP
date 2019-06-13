@@ -21,6 +21,7 @@ namespace SportTransfer4
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            DocumentDBRepository<SportTransfer4.Models.Item>.Initialize();
         }
     }
 }
