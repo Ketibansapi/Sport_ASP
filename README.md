@@ -1,4 +1,4 @@
-# Sport_ASP#
+# Sport_ASP
 
 Building a full-stack web application implemented Azure cloud services and using ASP. Net and SQL database. For a sport player transfer around the world. Still can running on the localhost.
 
